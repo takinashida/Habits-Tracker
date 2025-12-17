@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    "django_celery_beat",
     "drf_spectacular",
     "rest_framework_simplejwt",
     "rest_framework",
@@ -201,12 +202,7 @@ CELERY_RESULT_BACKEND = CELERY_BROKER_URL
 
 from celery.schedules import crontab
 
-CELERY_BEAT_SCHEDULE = {
-    "check_inactive_users_daily": {
-        "task": "materials.tasks.check_inactive_users",
-        "schedule": crontab(hour=8, minute=0),
-    }
-}
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 
 TELEGRAM_TOKEN=os.getenv('TELEGRAM_TOKEN')
 

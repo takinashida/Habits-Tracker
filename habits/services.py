@@ -11,7 +11,7 @@ def send_telegram_message(chat_id: str, text: str):
     }
 
     try:
-        response = requests.get(url, params=params)
+        response = requests.post(url, data=params, timeout=5)
         response.raise_for_status()
         return True
     except requests.exceptions.RequestException as e:
